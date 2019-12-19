@@ -76,7 +76,8 @@ def default_chain(api_wrapper=create_api_wrapper()):
 
 
 from .account import Account
+from .contract import Contract, DataEntry
 
 __all__ = [
-    'Account', 'Chain', 'Wrapper', 'is_offline'
+    'Account', 'Chain', 'Wrapper', 'Contract', 'DataEntry', 'is_offline'
 ]

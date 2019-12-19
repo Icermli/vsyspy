@@ -1,0 +1,6 @@
+sphinx
+docopt
+requests
+python-axolotl-curve25519
+pyblake2
+base58

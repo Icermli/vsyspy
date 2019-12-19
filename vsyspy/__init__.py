@@ -28,7 +28,7 @@ VSYSPY is a Python api wrapper for VSYS network.
 VSYSPY is a recursive acronym for V SYStems Python.
 """
 
-from .setting import *
+from vsyspy.setting import *
 
 import logging
 
@@ -57,7 +57,7 @@ def is_offline():
     return OFFLINE
 
 
-from .wrapper import Wrapper
+from vsyspy.wrapper import Wrapper
 
 
 def create_api_wrapper(node_host=DEFAULT_NODE, api_key=DEFAULT_API_KEY):

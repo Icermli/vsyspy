@@ -744,29 +744,29 @@ class ContractDefaults:
     initializer_textual = deser.serialize_arrays([init_func_bytes()])
 
     descriptor_textual_without_split = deser.serialize_arrays([supersede_func_bytes(),
-                                                      issue_func_bytes(),
-                                                      destroy_func_bytes(),
-                                                      send_func_bytes(),
-                                                      transfer_func_bytes(),
-                                                      deposit_func_bytes(),
-                                                      withdraw_func_bytes(),
-                                                      total_supply_func_bytes(),
-                                                      max_supply_func_bytes(),
-                                                      balance_of_func_bytes(),
-                                                      get_issuer_func_bytes()])
+                                                               issue_func_bytes(),
+                                                               destroy_func_bytes(),
+                                                               send_func_bytes(),
+                                                               transfer_func_bytes(),
+                                                               deposit_func_bytes(),
+                                                               withdraw_func_bytes(),
+                                                               total_supply_func_bytes(),
+                                                               max_supply_func_bytes(),
+                                                               balance_of_func_bytes(),
+                                                               get_issuer_func_bytes()])
 
     descriptor_textual_with_split = deser.serialize_arrays([supersede_func_bytes(),
-                                                      issue_func_bytes(),
-                                                      destroy_func_bytes(),
-                                                      split_func_bytes(),
-                                                      send_func_bytes(),
-                                                      transfer_func_bytes(),
-                                                      deposit_func_bytes(),
-                                                      withdraw_func_bytes(),
-                                                      total_supply_func_bytes(),
-                                                      max_supply_func_bytes(),
-                                                      balance_of_func_bytes(),
-                                                      get_issuer_func_bytes()])
+                                                            issue_func_bytes(),
+                                                            destroy_func_bytes(),
+                                                            split_func_bytes(),
+                                                            send_func_bytes(),
+                                                            transfer_func_bytes(),
+                                                            deposit_func_bytes(),
+                                                            withdraw_func_bytes(),
+                                                            total_supply_func_bytes(),
+                                                            max_supply_func_bytes(),
+                                                            balance_of_func_bytes(),
+                                                            get_issuer_func_bytes()])
 
     textual_without_split = deser.serialize_arrays([initializer_textual, descriptor_textual_without_split, state_var_textual])
     textual_with_split = deser.serialize_arrays(

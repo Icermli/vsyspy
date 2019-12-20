@@ -32,3 +32,7 @@ class InvalidStatus(VSYSPYException):
 
 class MissingAddressException(VSYSPYException):
     pass
+
+
+class InvalidContractException(VSYSPYException):
+    pass

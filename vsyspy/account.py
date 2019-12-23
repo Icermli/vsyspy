@@ -354,13 +354,12 @@ class Account(object):
     def register_contract(self, contract, data_stack, description='', tx_fee=DEFAULT_REGISTER_CONTRACT_FEE,
                           fee_scale=DEFAULT_FEE_SCALE, timestamp=0):
         if self._check(tx_fee, fee_scale, amount=0, default_fee=DEFAULT_REGISTER_CONTRACT_FEE):
-            contract_bytes = base58.b58decode(contract)
             data_stack_bytes = serialize_data(data_stack)
             if timestamp == 0:
                 timestamp = int(time.time() * 1000000000)
             sData = struct.pack(">B", REGISTER_CONTRACT_TX_TYPE) + \
-                    struct.pack(">H", len(contract_bytes)) + \
-                    contract_bytes + \
+                    struct.pack(">H", len(contract.bytes)) + \
+                    contract.bytes + \
                     struct.pack(">H", len(data_stack_bytes)) + \
                     data_stack_bytes + \
                     struct.pack(">H", len(description)) + \
@@ -373,7 +372,7 @@ class Account(object):
             data_stack_str = bytes2str(base58.b58encode(data_stack_bytes))
             data = json.dumps({
                 "senderPublicKey": self.publicKey,
-                "contract": bytes2str(base58.b58encode(contract_bytes)),
+                "contract": bytes2str(base58.b58encode(contract.bytes)),
                 "initData": data_stack_str,
                 "description": description_str,
                 "fee": tx_fee,

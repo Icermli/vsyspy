@@ -123,21 +123,68 @@ tx_id = response["id"]
 # cancel lease
 my_address.lease_cancel(tx_id)
 ```
-    
+
 ### contract object
-1. Register contract
+1. contructed by base58 string
 ```python
-from vsyspy import DataEntry
+from vsyspy import Contract
+my_contract = Contract('<contract-base58-string>')
+```
+or
+```python
+my_contract = Contract()
+my_contract.from_base58_string('<contract-base58-string>')
+```
+
+2. contructed from scratch
+```python
+from vsyspy import Contract
+my_contract = Contract()
+my_contract.language_code = <language_code>
+my_contract.language_version = <language_version>
+my_contract.trigger = <trigger>
+my_contract.descriptor = <descriptor_without_split>
+my_contract.state_variable = <state_variable>
+my_contract.state_map = <state_map>
+my_contract.textual = <textual>
+```
+
+3. default contract (token contract without split)
+```python
+import vsyspy as vpy
+my_contract = vpy.default_contract()
+```
+    
+### contract api list
+1. Get json
+```python
+my_contract.json
+```
+
+2. Get bytes
+```python
+my_contract.bytes
+```
+
+3. Get base58 string
+```python
+my_contract.base58_string
+```
+
+4. Register contract
+```python
+from vsyspy import DataEntry, Contract
 from vsyspy.contract import Type
 # register contract of max 1000000000000 and unit 1000000
+contract = Contract('<contract-base58-string>')
 maximum = DataEntry(1000000000000, Type.amount)
 unit = DataEntry(1000000, Type.amount)
 short_txt = DataEntry('', Type.short_text)
 init_data_stack = [maximum, unit, short_txt]
-response = my_address.register_contract('<contract-string>', init_data_stack)
+response = my_address.register_contract(contract, init_data_stack)
 contract_id = response["contractId"]
 ```
-2. Execute contract
+5. Execute contract
 ```python
 # execute issue function of 1000000000 tokens
 amount = DataEntry(1000000000, Type.amount)

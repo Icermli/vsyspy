@@ -1,3 +1,29 @@
+__copyright__ = "Copyright (C) 2019 Icerm"
+
+__license__ = """
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+"""
+
+__doc__ = """
+:mod:`vsyspy.contract` contract on vsys chain.
+"""
+
 from .crypto import *
 from .deser import Deser
 from .errors import *
@@ -12,50 +38,64 @@ logger = logging.getLogger(__name__)
 
 
 class Contract(object):
-    def __init__(self, language_code=None, language_version=None, trigger=None, descriptor=None, state_var=None,
-                 state_map=None, textual=None):
-        if language_code is None:
-            self.language_code = ContractDefaults.language_code
-        else:
-            self.language_code = language_code
-        if language_code is None:
-            self.language_version = ContractDefaults.language_version
-        else:
-            self.language_version = language_version
-        if trigger is None:
-            self.trigger = ContractDefaults.trigger
-        else:
-            self.trigger = trigger
-        if descriptor is None:
-            self.descriptor = ContractDefaults.descriptor_with_split
-        else:
-            self.descriptor = descriptor
-        if state_var is None:
-            self.state_variable = ContractDefaults.state_var
-        else:
-            self.state_variable = state_var
-        if state_map is None:
-            self.state_map = ''
-        else:
-            self.state_map = state_map
-        if textual is None:
-            self.textual = ContractDefaults.textual_with_split
-        else:
-            self.textual = textual
+    """Class for Contract.
+
+    It can be used to create vsys contract object
+
+    .. attribute:: language_code
+
+        VSYS contract language code, default: bytes("vdds".encode()).
+
+    .. attribute:: language_version
+
+        VSYS contract language version, default: struct.pack(">I", 1).
+
+    .. attribute:: trigger
+
+        VSYS contract trigger functions, type: list(bytes).
+
+    .. attribute:: descriptor
+
+        VSYS contract descriptor functions, type: list(bytes).
+
+    .. attribute:: state_variable
+
+         VSYS contract state variable, type: list(bytes).
+
+    .. attribute:: state_map
+
+        VSYS contract state variable, type: list(bytes).
+
+    .. attribute:: textual
+
+        VSYS contract state variable, type: list(bytes).
+
+    """
+    def __init__(self, base58_string=None):
+        self.language_code = None
+        self.language_version = None
+        self.trigger = None
+        self.descriptor = None
+        self.state_variable = None
+        self.state_map = None
+        self.textual = None
+        if base58_string:
+            self.from_base58_string(base58_string)
 
     @property
     def json(self):
-        if self.language_version == struct.pack(">I", 1):
-            return {"language_code": Deser.deserialize_string(self.language_code),
-                    "language_version": int.from_bytes(self.language_version, byteorder='big'),
-                    "triggers": [bytes2str(base58.b58encode(x)) for x in self.trigger],
-                    "descriptors": [bytes2str(base58.b58encode(x)) for x in self.descriptor],
-                    "state_variables": [bytes2str(base58.b58encode(x)) for x in self.state_variable],
-                    "textual": {"triggers": bytes2str(base58.b58encode(self.textual[0])),
-                                "descriptors": bytes2str(base58.b58encode(self.textual[1])),
-                                "state_variables": bytes2str(base58.b58encode(self.textual[2])),
-                                "state_maps": bytes2str(base58.b58encode(self.textual[3])) if len(self.textual) >= 4 else ''
-                                }}
+        return {"language_code": Deser.deserialize_string(self.language_code),
+                "language_version": int.from_bytes(self.language_version, byteorder='big'),
+                "triggers": [bytes2str(base58.b58encode(x)) for x in self.trigger],
+                "descriptors": [bytes2str(base58.b58encode(x)) for x in self.descriptor],
+                "state_variables": [bytes2str(base58.b58encode(x)) for x in self.state_variable],
+                "state_map": [bytes2str(base58.b58encode(x)) for x in self.state_map],
+                "textual": {"triggers": bytes2str(base58.b58encode(self.textual[0])),
+                            "descriptors": bytes2str(base58.b58encode(self.textual[1])),
+                            "state_variables": bytes2str(base58.b58encode(self.textual[2])),
+                            "state_maps": bytes2str(base58.b58encode(self.textual[3])) if len(
+                                self.textual) >= 4 else ''
+                            }}
 
     @property
     def bytes(self):
@@ -77,7 +117,7 @@ class Contract(object):
     def base58_string(self):
         return bytes2str(base58.b58encode(self.bytes))
 
-    def from_string(self, contract_bytes_string):
+    def from_base58_string(self, contract_bytes_string):
         contract_bytes = base58.b58decode(contract_bytes_string)
         self.from_bytes(contract_bytes)
 
@@ -91,11 +131,11 @@ class Contract(object):
             self.descriptor = Deser.parse_arrays(descriptor_bytes)
             state_variable_bytes, state_variable_end = Deser.parse_array_size(contract_bytes, descriptor_end)
             self.state_variable = Deser.parse_arrays(state_variable_bytes)
-            state_map_bytes, state_map_end = state_variable_bytes, state_variable_end if self.language_version == struct.pack(">I", 1) else Deser.parse_array_size(contract_bytes, state_variable_end)
+            state_map_bytes, state_map_end = (state_variable_bytes, state_variable_end) if self.language_version == struct.pack(">I", 1) else Deser.parse_array_size(contract_bytes, state_variable_end)
             self.state_map = Deser.parse_arrays(struct.pack(">H", 0)) if self.language_version == struct.pack(">I", 1) else Deser.parse_arrays(state_map_bytes)
-            self.textual = Deser.parse_arrays(contract_bytes[state_map_end:])
-        except ValueError:
-            raise InvalidContractException("Invalid Contract")
+            self.textual = Deser.parse_arrays(contract_bytes[state_map_end:len(contract_bytes)])
+        except ValueError or TypeError:
+            raise InvalidContractException("Contract is not initialized")
 
 
 def language_code_builder(code):

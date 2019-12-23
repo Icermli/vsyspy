@@ -76,7 +76,20 @@ def default_chain(api_wrapper=create_api_wrapper()):
 
 
 from .account import Account
-from .contract import Contract, DataEntry
+from .contract import Contract, DataEntry, ContractDefaults
+
+
+def default_contract(con_dts=ContractDefaults):
+    con = Contract()
+    con.language_code = con_dts.language_code
+    con.language_version = con_dts.language_version
+    con.trigger = con_dts.trigger
+    con.descriptor = con_dts.descriptor_without_split
+    con.state_variable = con_dts.state_var
+    con.state_map = ''
+    con.textual = con_dts.textual_without_split
+    return con
+
 
 __all__ = [
     'Account', 'Chain', 'Wrapper', 'Contract', 'DataEntry', 'is_offline'

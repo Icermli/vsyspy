@@ -161,6 +161,12 @@ def bytes_builder_from_list(input_list):
     else:
         logging.error("The input should be a list")
 
+def token_id_from_contract_id(contract_id, idx):
+    address_bytes = base58.b58decode(contract_id)
+    contract_id_no_check_sum = address_bytes[1:(len(address_bytes) - ContractMeta.check_sum_length)]
+    without_check_sum = struct.pack("b", ContractMeta.token_address_version) + contract_id_no_check_sum + struct.pack(">I",
+                                                                                                              idx)
+    return bytes2str(base58.b58encode(without_check_sum + str2bytes(hashChain(without_check_sum)[0:ContractMeta.check_sum_length])))
 
 def serialize_data(data_entry_list):
     custom_data_stack = []

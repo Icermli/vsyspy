@@ -52,7 +52,11 @@ DBPUT_TX_TYPE = 10
 
 LEASE_TX_ID_BYTES = 32
 
-from .crypto import no_return_bytes
+Contract_Permitted_Without_Split = "3GQnJtxDQc3zFuUwXKbrev1TL7VGxk5XNZ7kUveKK6BsneC1zTSTRjgBTdDrksHtVMv6nwy9Wy6MHRgydAJgEegDmL4yx7tdNjdnU38b8FrCzFhA1aRNxhEC3ez7JCi3a5dgVPr93hS96XmSDnHYvyiCuL6dggahs2hKXjdz4SGgyiUUP4246xnELkjhuCF4KqRncUDcZyWQA8UrfNCNSt9MRKTj89sKsV1hbcGaTcX2qqqSU841HyokLcoQSgmaP3uBBMdgSYVtovPLEFmpXFMoHWXAxQZDaEtZcHPkrhJyG6CdTgkNLUQKWtQdYzjxCc9AsUGMJvWrxWMi6RQpcqYk3aszbEyAh4r4fcszHHAJg64ovDgMNUDnWQWJerm5CjvN76J2MVN6FqQkS9YrM3FoHFTj1weiRbtuTc3mCR4iMcu2eoxcGYRmUHxKiRoZcWnWMX2mzDw31SbvHqqRbF3t44kouJznTyJM6z1ruiyQW6LfFZuV6VxsKLX3KQ46SxNsaJoUpvaXmVj2hULoGKHpwPrTVzVpzKvYQJmz19vXeZiqQ2J3tVcSFH17ahSzwRkXYJ5HP655FHqTr6Vvt8pBt8N5vixJdYtfx7igfKX4aViHgWkreAqBK3trH4VGJ36e28RJP8Xrt6NYG2icsHsoERqHik7GdjPAmXpnffDL6P7NBfyKWtp9g9C289TDGUykS8CNiW9L4sbUabdrqsdkdPRjJHzzrb2gKTf2vB56rZmreTUbJ53KsvpZht5bixZ59VbCNZaHfZyprvzzhyTAudAmhp8Nrks7SV1wTySZdmfLyw7vsNmTEi3hmuPmYqExp4PoLPUwT4TYt2doYUX1ds3CesnRSjFqMhXnLmTgYXsAXvvT2E6PWTY5nPCycQv5pozvQuw1onFtGwY9n5s2VFjxS9W6FkCiqyyZAhCXP5o44wkmD5SVqyqoL5HmgNc8SJL7uMMMDDwecy7Sh9vvt3RXirH7F7bpUv3VsaepVGCHLfDp9GMG59ZiWK9Rmzf66e8Tw4unphu7gFNZuqeBk2YjCBj3i4eXbJvBEgCRB51FATRQY9JUzdMv9Mbkaq4DW69AgdqbES8aHeoax1UDDBi3raM8WpP2cKVEqoeeCGYM2vfN6zBAh7Tu3M4NcNFJmkNtd8Mpc2Md1kxRsusVzHiYxnsZjo "
+
+Contract_Permitted_With_Split = "3dPGAWbTw4srh5hmMiRUhHtcxmXXLUooKGAfnmz11j5NruyJpBzZpgvADMdZS7Mevy5MAHqFbfHYdfqaAe1JEpLWt1pJWLHZBV62zUhLGmVLXUP5UDvSs24jsBRHqZMC71ciE1uYtgydKxCoFJ3rAgsYqp7GDeTU2PXS5ygDmL6WXmbAYPS8jE4sfNUbJVwpvL1cTw4nnjnJvmLET8VmQybxFt415RemV3MFPeYZay5i5gMmyZa63bjzK1uMZAVWA9TpF5YQ1NTZjPaRPvQGYVY4kY9L4LFJvUG2bib1QaNh7wUAQnTzJfRYJoy1aegFGFZFnBGp9GugH4fHAY69vGmZQnhDw3jU45G9odFyXo3T5Ww4R5szegbjCUKdUGpXf9vY2cKEMJ7i8eCkFVG1dDFZeVov1KMjkVNV8rDBDYfcp3oSGNWQQvGSUT5iGUvDRN8phy1UpR3A9uMVebvjLnVzPx9RyqQ8HaXLM8vPhLuWLoh5hk1Zi1n9nwz55XvKDYjP6eeB55yK5vpg8xjaYDnw9bjYV7ZmS7LAsHvXfnwi8y2W6vk2hGvs4rtR1vNRZSQMPGRRSuwCRJL1yngH6uHWwm2ajWxc684jApuoLdyjZomfCtdpabSyU3kp9Lrn8zT8BVY332sJPQU6gTQi8ke9s9dBxCae4cfSQM6HhuBmFc5KKWHCVG4bm4KZRYbMtidw8ZZnjaAMtcGq7k3Se6GXaTxdS3GcuttB3VB7njypyzuqAcfCdYb9ht8Y1WuTCZ1aLsXsL6eydfk2WLJVrqYpbTk6AchV5gMAEopvc3qXvzrDCedjtNsDmA56Lh6PxrrKr8aV8Wzz8aMaQ88YsVBpE8J4cDkxzo31AojhzEGVBKLmpb3bjmsaw9VkpB6yL8ngYs8eJMSPdM289TSMaEmG4eHt1jezpHTKxkuB9cwqcvhGNLWuv8KXQkik5pRMXV67Qs2FvjpzeJ81z2hnVh1wCtsa6M6qAG1gsqLHa1AVMRzsowafC99uDexwWMBS2RqsZWZBXJcUiNVULjApSnoBREYfHYEpjJ152hnTYZCAwpZMWEkVdBQpZ3zk8gbfLxB4fWMfKgJJucbKPGp1K56u7P8MHQu9aNb9dEof2mwX8rTHjk8jSQ7kXVX4Mf1JqMRWWftkV3GmU1nqYhxRGu4FjDNAomwTr5epHpcMF6P5oiXcLWh5BFQVmGYKz129oizAyUJBsZdxr2WZEGDieLxUg8cve25g28oTuCVENST4z1ZsFAN9wTa1"
+
+Contract_Lock = "2LZZFEPkAfVjnLQfhTKe2zYFALStgG4z9ujJPHxGS5xogou9nA4wEphzSLS7UePQqu5AQYsoLCq8NDqiZuipq5LPcJsxdNoxMksBhJmzmitAtPQ6g49gYD9DM2Z34tJTJHrcbHBy2JKvS6Lq7ewQ4YbdfuYo17bTPr6J1ybPL9Xq1a9P5mAgweYddXgxzmErsJfsUKwUMMrmZ1Zw7NmYokF8GEKV2K1PGByDHp5MXpjFjAYG6kFXkMpoUmGuUcS1B7TCbK33VD7HM9MS2wKzUVn4XshoTeDRTgAh697a83qoApkJURaD5rFBA92yFHTbmJa7JjZAA692xNTQanYhYQtjUMythxNybSiK2CqyCfYNFnPUrDQBG3sq2VgxtPhQSDZzLFa1zK46Mdq7GRTU6CXZCndFGbYBDnFhHCSsqjoWs4sQQuZovjUoRzVs8KGvSRXURJ4KEdW26DJA91Pgi5G8Z9AvZSAVajvSy7LJZmPRdbR4ACmu2UeAqTNfa4Q1Vs93QD2tf682vy6zT2DPuRuspSjGKET5WvXu6f3moueAJJziLvebHQzr15f9UyQe5mS8Co2hVBvqnJD8aFV4L2X6uT5xcWio7BdDv5ZpArRLQPYM33MoNyLWaxTxBT297D7d6iU5d6PR6jcvZJUAPE1o8hGghGLFgTqEGSQF5kDYwKueVDC1pzm7HwkjMqcKz8wPij3eAVyjfptfwmg2bbKEf6"
 
 
 class ContractMeta:
@@ -61,140 +65,3 @@ class ContractMeta:
 
     language_code_byte_length = 4
     language_version_byte_length = 4
-
-    data_type_list = {'01': 'PublicKey', '02': 'Address', '03': 'Amount', '04': 'Int32', '05': 'ShortText',
-                      '06': 'ContractAccount', '07': 'Account'}
-
-    function_type_map = {'000': 'onInit', '100': 'public'}
-
-    non_return_type = no_return_bytes
-
-    state_var_name = ["issuer", "maker"]
-
-    init_para = ["max", "unity", "tokenDescription", "signer"]
-    supersede_para = ["newIssuer", "maker"]
-    issue_para = ["amount", "issuer"]
-    destroy_para = ["amount", "issuer"]
-    split_para = ["newUnity", "issuer"]
-    send_para = ["recipient", "amount", "caller"]
-    transfer_para = ["sender", "recipient", "amount"]
-    deposit_para = ["sender", "smart", "amount"]
-    withdraw_para = ["smart", "recipient", "amount"]
-    total_supply_para = ["total"]
-    max_supply_para = ["max"]
-    balance_of_para = ["address", "balance"]
-    get_issuer_para = ["issuer"]
-
-    state_var_issuer = bytes([0])
-    state_var_maker = bytes([1])
-
-    gteq_zero_assert = bytes([1])
-    lteq_assert = bytes([2])
-    lt_int64_assert = bytes([3])
-    gt_zero_assert = bytes([4])
-    eq_assert = bytes([5])
-    is_caller_origin_assert = bytes([6])
-    is_signer_origin_assert = bytes([7])
-
-    set_cdbv = bytes([1])
-
-    get_cdbvr = bytes([1])
-
-    signer_load = bytes([1])
-    caller_load = bytes([2])
-
-    assert_opc = bytes([1])
-    load_opc = bytes([2])
-    cdbv_opc = bytes([3])
-    cdbvr_opc = bytes([4])
-    tdb_opc = bytes([5])
-    tdbr_opc = bytes([6])
-    tdba_opc = bytes([7])
-    tdbar_opc = bytes([8])
-    return_opc = bytes([9])
-
-    deposit_tdba = bytes([1])
-    withdraw_tdba = bytes([2])
-    transfer_tdba = bytes([3])
-
-    balance_tdbar = bytes([1])
-
-    new_token_tdb = bytes([1])
-    split_tdb = bytes([2])
-
-    get_tdbr = bytes([1])
-    total_tdbr = bytes([2])
-
-    init = 0
-    supersede = 0
-    issue = 1
-    destroy = 2
-    split = 3
-    send = 4
-    transfer = 5
-    deposit = 6
-    withdraw = 7
-    total_supply = 8
-    max_supply = 9
-    balance_of = 10
-    get_issuer = 11
-
-    supersede_without_split = 0
-    issue_without_split = 1
-    destroy_without_split = 2
-    send_without_split = 3
-    transfer_without_split = 4
-    deposit_without_split = 5
-    withdraw_without_split = 6
-    total_supply_without_split = 7
-    max_supply_without_split = 8
-    balance_of_without_split = 9
-    get_issuer_without_split = 10
-
-    supersede_index = bytes([0])
-    issue_index = bytes([1])
-    destroy_index = bytes([2])
-    split_index = bytes([3])
-    send_index = bytes([4])
-    transfer_index = bytes([5])
-    deposit_index = bytes([6])
-    withdraw_index = bytes([7])
-    total_supply_index = bytes([8])
-    max_supply_index = bytes([9])
-    balance_of_index = bytes([10])
-    get_issuer_index = bytes([11])
-
-    init_input_max_index = bytes([0])
-    init_input_unity_index = bytes([1])
-    init_input_short_text_index = bytes([2])
-    init_input_issuer_load_index = bytes([3])
-
-    supersede_input_new_issuer_index = bytes([0])
-    supersede_input_maker = bytes([1])
-
-    split_input_new_unity_index = bytes([0])
-    split_input_issuer_get_index = bytes([1])
-
-    destroy_input_destroy_amount_index = bytes([0])
-    destroy_input_issuer_get_index = bytes([1])
-
-    issue_input_amount_index = bytes([0])
-    issue_input_issuer_get_index = bytes([1])
-
-    send_input_recipient_index = bytes([0])
-    send_input_amount_index = bytes([1])
-    send_input_sender_index = bytes([2])
-
-    transfer_input_sender_index = bytes([0])
-    transfer_input_recipient_index = bytes([1])
-    transfer_input_amount_index = bytes([2])
-
-    deposit_input_sender_index = bytes([0])
-    deposit_input_smart_contract_index = bytes([1])
-    deposit_input_amount_index = bytes([2])
-
-    withdraw_input_smart_contract_index = bytes([0])
-    withdraw_input_recipient_index = bytes([1])
-    withdraw_input_amount_index = bytes([2])
-
-    balance_of_input_account_index = bytes([0])

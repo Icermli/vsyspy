@@ -1,3 +1,8 @@
+[![version](https://img.shields.io/badge/version-2020.1-ff69b4.svg)](/vsyspy/version.py)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![downloads](https://img.shields.io/github/downloads/Icermli/vsyspy/total.svg)]()
+[![issues](https://img.shields.io/github/issues/Icermli/vsyspy.svg)](https://github.com/Icermli/vsyspy/issues)
+
 # VSYSPY
 A python wrapper for vsys api.
 

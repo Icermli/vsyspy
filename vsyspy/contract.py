@@ -221,6 +221,11 @@ def parse_data_entry_array_size(bytes_object, start_position):
     elif bytes_object[start_position: start_position + 1] == Type.timestamp:
         return (data_entry_from_bytes(bytes_object[start_position:start_position + Type.amount_length + 1]),
                 start_position + Type.amount_length + 1)
+    elif bytes_object[start_position: start_position + 1] == Type.short_bytes:
+        return (data_entry_from_bytes(bytes_object[start_position:start_position + struct.unpack(">H", bytes_object[
+                                                                                                       start_position + 1:start_position + 3])[
+            0] + 3]),
+                start_position + struct.unpack(">H", bytes_object[start_position + 1: start_position + 3])[0] + 3)
 
 
 def data_entry_from_bytes(bytes_object):
@@ -242,6 +247,8 @@ def data_entry_from_bytes(bytes_object):
         return DataEntry(bytes2str(base58.b58encode(bytes_object[1:])), bytes_object[0:1])
     elif bytes_object[0:1] == Type.timestamp:
         return DataEntry(struct.unpack(">Q", bytes_object[1:])[0], bytes_object[0:1])
+    elif bytes_object[0:1] == Type.short_bytes:
+        return DataEntry(bytes2str(bytes_object[3:]), bytes_object[0:1])
 
 
 def check_data_type(data, data_type):
@@ -261,6 +268,10 @@ def check_data_type(data, data_type):
         data_bytes = Deser.serialize_array(str2bytes(data))
         return struct.unpack(">H", data_bytes[0:2])[0] + 2 == len(data_bytes) and len(
             data_bytes) <= Type.max_short_text_size + 2
+    elif data_type == Type.short_bytes:
+        data_bytes = Deser.serialize_array(str2bytes(data))
+        return struct.unpack(">H", data_bytes[0:2])[0] + 2 == len(data_bytes) and len(
+            data_bytes) <= Type.max_short_bytes_size + 2
     else:
         return True
 
@@ -293,6 +304,9 @@ class DataEntry:
         elif data_type == Type.timestamp:
             self.data_bytes = struct.pack(">Q", data)
             self.data_type = 'timestamp'
+        elif data_type == Type.short_bytes:
+            self.data_bytes = Deser.serialize_array(str2bytes(data))
+            self.data_type = 'short_bytes'
         self.data = data
         self.bytes = data_type + self.data_bytes
 
@@ -315,4 +329,6 @@ class Type:
     token_address_length = 30
     timestamp = struct.pack(">B", 9)
     boolean = struct.pack(">B", 10)
-    balance = struct.pack(">B", 11)
+    short_bytes = struct.pack(">B", 11)
+    max_short_bytes_size = 255
+    balance = struct.pack(">B", 12)

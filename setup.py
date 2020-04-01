@@ -35,7 +35,7 @@ def main():
           description="A Python api wrapper for VSYS network.",
           long_description=open("README.md", "rt").read(),
           url='',
-          download_url="https://github.com/Icermli/vsyspy/archive/2020.1.tar.gz",
+          download_url="https://github.com/Icermli/vsyspy/archive/version@2020.3.tar.gz",
           author='Icerm',
           author_email='haohan@v.systems',
           license='MIT',

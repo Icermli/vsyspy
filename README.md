@@ -1,4 +1,4 @@
-[![version](https://img.shields.io/badge/version-2020.1-ff69b4.svg)](/vsyspy/version.py)
+[![version](https://img.shields.io/badge/version-2020.3-ff69b4.svg)](/vsyspy/version.py)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 [![downloads](https://img.shields.io/github/downloads/Icermli/vsyspy/total.svg)](https://github.com/Icermli/vsyspy/releases)
 [![issues](https://img.shields.io/github/issues/Icermli/vsyspy.svg)](https://github.com/Icermli/vsyspy/issues)
